@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: validation.php 35 2010-07-12 18:33:03Z chris $
+ * $Id$
  *
  * ClickandBuy Module
  *

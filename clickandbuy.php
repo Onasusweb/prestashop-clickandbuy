@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: clickandbuy.php 38 2010-07-13 15:52:30Z chris $
+ * $Id$
  *
  * ClickandBuy Module
  *
