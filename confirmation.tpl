@@ -1,3 +1,4 @@
+<!-- ClickandBuy Module | http://www.touchdesign.de/loesungen/prestashop/clickandbuy_en.htm -->
 {if $status == 'accepted' || $status == 'pending'}
 	<p>
 		{l s='Your order on' mod='clickandbuy'} <span class="bold">{$shop_name}</span> {l s='is complete.' mod='clickandbuy'}
@@ -10,4 +11,4 @@
 		<a href="{$base_dir_ssl}contact-form.php">{l s='customer support' mod='bankwire'}</a>.
 	</p>
 {/if}
-
+<!-- ClickandBuy Module | http://www.touchdesign.de/loesungen/prestashop/clickandbuy_en.htm -->
