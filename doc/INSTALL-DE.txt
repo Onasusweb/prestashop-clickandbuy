@@ -1,0 +1,30 @@
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* $Id: INSTALL-DE.txt 39 2010-07-13 15:54:52Z chris $
+* Copyright (c) 2009 Christoph Gruber, <www.touchdesign.de>
+* @author Christoph Gruber, www.touchdesign.de
+* @copyright 01.12.2009, 12:15:52, Christoph Gruber, touchDesign
+* @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+-- DOWNLOAD --
+
+Das Modul wird Open Source angeboten und kann unter folgender URL kostenlos heruntergeladen werden:
+
+http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
+
+-- INSTALLATION PER MODULINSTALLER --
+
+Wechseln Sie in Ihrem Shopsystem über den "Adminbereich" in den Tab "Module" und klicken Sie auf den
+Link "Ein neues Modul hinzufügen". Klicken Sie auf den Button "Durchsuchen" und wählen Sie nun das 
+zuvor heruntergeladene Modularchiv "clickandbuy-vX.tar" von Ihrer lokalen Festplatte.
+Nach dem Sie das Modularchiv angewählt haben bestätigen Sie bitte die Installation des Modules durch einen 
+Klick auf den Button "Dieses Modul hochladen". Nach erfolgreicher Installation des Modules erscheint die 
+Meldung "Modul wurde erfolgreich installiert".
+
+-- AUTOMATISCHE HÄNDLER SCHNELLREGISTRIERUNG (Neukunden) --
+
+Nach erfolgreicher Installation des ClickandBuy Modules wechseln Sie bitte in die Modul-Konfiguration durch Anwahl 
+des soeben installierten Modules "ClickandBuy" in der Modulliste unter der Kategorie "Payment" durch einen Klick 
+auf auf den Link "Einstellungen". Folgen Sie nun bitte dem Link "Automatische ClickandBuy Händlerregistrierung" um ein
+neues Händlerkonto bei ClickandBuy einzurichten. Nach erfolgreicher Installation werden Sie automatisch in das Shopsystem
+zurückgeleitet und das Paymentmodul ClickandBuy wird automatisch mit allen notwendigen Daten vorkonfiguriert.
