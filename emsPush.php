@@ -1,15 +1,15 @@
 <?php
 /**
- * $Id: emsPush.php 37 2010-07-12 20:23:23Z chris $
+ * $Id$
  *
  * ClickandBuy Module
  *
- * Copyright (c) 2009 Christoph Gruber, <www.touchdesign.de>
+ * Copyright (c) 2009 touchDesign
  *
  * @category Payment
- * @author Christoph Gruber, www.touchdesign.de
- * @version 0.1
- * @copyright 01.12.2009, 12:15:52, Christoph Gruber, touchDesign
+ * @author Christoph Gruber <www.touchdesign.de>
+ * @version 0.2
+ * @copyright 01.12.2009, touchDesign
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  *
  * Description:
