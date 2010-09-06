@@ -64,7 +64,8 @@ class clickandbuy extends PaymentModule
           !Configuration::updateValue('CLICKANDBUY_OS_PENDING', 3) ||
           !Configuration::updateValue('CLICKANDBUY_BLOCK_LOGO', 'Y') ||
           !$this->registerHook('payment') ||
-          !$this->registerHook('leftColumn')
+          !$this->registerHook('leftColumn') ||
+          !$this->registerHook('paymentReturn')
         ){
             return false;
         }
@@ -346,7 +347,35 @@ class clickandbuy extends PaymentModule
 			return false;
 		return $this->display(__FILE__, 'blockclickandbuylogo.tpl');
 	}
-	
+
+	public function hookPaymentReturn($params)
+	{
+		global $smarty;
+
+		$orderObj = $params['objOrder'];
+		$orderTotal = $params['total_to_pay'];
+		$orderCurrency = $params['currency'];
+		$currencyObj = $params['currencyObj'];
+
+		if ($orderObj->module != $this->name || !$this->active){
+			return false;
+		}
+
+		$state = $params['objOrder']->getCurrentState();
+		if ($state == Configuration::get('CLICKANDBUY_OS_PENDING') || 
+			$state == Configuration::get('CLICKANDBUY_OS_ACCEPTED')){
+			$smarty->assign(array(
+				'status' => 'accepted',
+				'total_to_pay' => Tools::displayPrice($orderTotal, $currencyObj, false, false),
+				'id_order' => $params['objOrder']->id
+			));
+		}else{
+			$smarty->assign('status', 'failed');
+		}
+
+		return $this->display(__FILE__, 'confirmation.tpl');
+	} 
+
     public function isPayment()
     {
         if (!$this->active)

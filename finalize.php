@@ -53,14 +53,14 @@ if($params['successString'] == 'success'){
 
 }else{
 
-  $params['state'] = "error"; 
+	$params['state'] = "error"; 
 }
 
 $cart = new Cart(intval($params['externalBDRID']));
 if($cart && is_object($cart) && $params['state'] == 'created'){
-  $params['orderState'] = Configuration::get('CLICKANDBUY_OS_ACCEPTED');
+	$params['orderState'] = Configuration::get('CLICKANDBUY_OS_ACCEPTED');
 }else{
-  $params['orderState'] = Configuration::get('CLICKANDBUY_OS_ERROR');
+	$params['orderState'] = Configuration::get('CLICKANDBUY_OS_ERROR');
 }
 
 $e = @$clickandbuy->switchOrderState($params['externalBDRID'], $params['orderState'], 
@@ -69,18 +69,17 @@ $e = @$clickandbuy->switchOrderState($params['externalBDRID'], $params['orderSta
 
 if($e !== false){
 
-  $params['finalizeOrder'] = "SUCCESS: " . $e;
-  $redirectUrl = (Configuration::get('PS_SSL_ENABLED') == 1 ? 'https://' : 'http://')
-	. $_SERVER['HTTP_HOST'].__PS_BASE_URI__.'history.php';
-
+	$order = new Order($clickandbuy->currentOrder);
+	$params['finalizeOrder'] = "SUCCESS: " . $e;
+	$redirectUrl = 'order-confirmation.php?id_cart=' . $cart->id 
+		. '&id_module=' . $clickandbuy->id . '&id_order=' . $clickandbuy->currentOrder 
+		. '&key='.$order->secure_key;
 }else{
 
-  $params['finalizeOrder'] = "ERROR, cant set new order state";
-  $redirectUrl = (Configuration::get('PS_SSL_ENABLED') == 1 ? 'https://' : 'http://')
-	. $_SERVER['HTTP_HOST'].__PS_BASE_URI__.'order.php';  
-
+	$params['finalizeOrder'] = "ERROR, cant set new order state";
+	$redirectUrl = 'history.php';  
 }
 
-Tools::RedirectLink($redirectUrl);
+Tools::Redirect($redirectUrl);
 
 ?>
