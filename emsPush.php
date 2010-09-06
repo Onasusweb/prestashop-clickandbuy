@@ -30,9 +30,9 @@ if(substr($_SERVER["REMOTE_ADDR"],0,11) != '217.22.128.'){
 if(!isset($_POST['xml']) || empty($_POST['xml'])){
 	die("NOK");
 }else{
-  $xmlData = str_replace("\\" , "" ,$_POST['xml']);
-  $transactionDetails.="XMLDATA: $xmlData\n";
-  $xml = new SimpleXMLElement($xmlData);  
+	$xmlData = str_replace("\\" , "" ,$_POST['xml']);
+	$transactionDetails.="XMLDATA: $xmlData\n";
+	$xml = new SimpleXMLElement($xmlData);  
 }
 
 $event['id'] = (string)$xml->GLOBAL->{'event-id'};
