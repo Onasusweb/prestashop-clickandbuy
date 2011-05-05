@@ -21,6 +21,7 @@
 require dirname(__FILE__).'/../../config/config.inc.php';
 require dirname(__FILE__).'/clickandbuy.php';
 require dirname(__FILE__).'/lib/nusoap.php';
+require_once dirname(__FILE__).'/lib/touchdesign.php';
 
 $clickandbuy = new clickandbuy();
 
@@ -71,15 +72,13 @@ if($e !== false){
 
 	$order = new Order($clickandbuy->currentOrder);
 	$params['finalizeOrder'] = "SUCCESS: " . $e;
-	$redirectUrl = 'order-confirmation.php?id_cart=' . $cart->id 
+  touchdesign::redirect(__PS_BASE_URI__.'order-confirmation.php','id_cart=' . $cart->id 
 		. '&id_module=' . $clickandbuy->id . '&id_order=' . $clickandbuy->currentOrder 
-		. '&key='.$order->secure_key;
+		. '&key='.$order->secure_key);
 }else{
 
 	$params['finalizeOrder'] = "ERROR, cant set new order state";
-	$redirectUrl = 'history.php';  
+  touchdesign::redirect(__PS_BASE_URI__.'history.php');
 }
-
-Tools::Redirect($redirectUrl);
 
 ?>
