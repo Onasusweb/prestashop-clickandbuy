@@ -26,7 +26,12 @@ class clickandbuy extends PaymentModule {
 
 		$this->name = 'clickandbuy';
 		$this->tab = 'Payment';
-		$this->version = '0.2';
+    if (version_compare(_PS_VERSION_, '1.4.0', '<')){
+      $this->tab = 'Payment';
+    }else{
+      $this->tab = 'payments_gateways';
+    }
+    $this->author = 'touchDesign';
 		$this->currencies = true;
 		$this->currencies_mode = 'radio';
 		parent::__construct();
