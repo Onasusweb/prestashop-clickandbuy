@@ -44,6 +44,7 @@ class clickandbuy extends PaymentModule {
     }else{
       $this->tab = 'payments_gateways';
     }
+    $this->version = '0.3';
     $this->author = 'touchDesign';
     $this->currencies = true;
     $this->currencies_mode = 'radio';
@@ -287,9 +288,9 @@ class clickandbuy extends PaymentModule {
     $this->_html.= '
       <fieldset class="space">
         <legend><img src="../img/admin/unknown.gif" alt="" class="middle" />'.$this->l('Help').'</legend>   
-        '.$this->l('@Link:').' <a target="_blank" href="http://www.clickanbuy.com/">'.$this->l('ClickandBuy.com').'</a><br />
+        '.$this->l('@Link:').' <a target="_blank" href="http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm">www.touchdesign.de</a><br />
         '.$this->l('@Vendor:').' ClickandBuy International Limited<br />
-        '.$this->l('@Author:').' Christoph Gruber, <a target="_blank" href="http://www.touchdesign.de/">www.touchdesign.de</a><br />
+        '.$this->l('@Author:').' <a target="_blank" href="http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm">touchDesign</a><br />
       </fieldset><br />';
 
     return $this->_html;

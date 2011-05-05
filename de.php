@@ -11,7 +11,7 @@ $_MODULE['<{clickandbuy}prestashop>clickandbuy_8e061e4538bf3121f6fa1cd77c1d13f9'
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_f4d1ea475eaa85102e2b4e6d95da84bd'] = 'Bestätigen';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_c888438d14855d7d96a2724ee9c306bd'] = 'Einstellungen übernommen';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_bfcf9018affff023282987d6070cd077'] = 'Händlerregistrierung';
-$_MODULE['<{clickandbuy}prestashop>clickandbuy_086247a9b57fde6eefee2a0c4752242d'] = 'Automatische';
+$_MODULE['<{clickandbuy}prestashop>clickandbuy_086247a9b57fde6eefee2a0c4752242d'] = 'Um dieses Modul nutzen zu können konfigurieren Sie es bitte über die automatische';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_e721ad19ee4f3c9b232849e9e3b89037'] = 'ClickandBuy Händlerregistrierung';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_f4f70727dc34561dfde1a3c529b6205c'] = 'Einstellungen';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_1baa9a830d4f3ee16765df6cd8b7258a'] = 'ClickandBuy Seller-Id';
@@ -32,10 +32,8 @@ $_MODULE['<{clickandbuy}prestashop>clickandbuy_e722d72b214116587e4e6082588df694'
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_d0007a0dcdfd2d49d6eefb52ee85d3e9'] = 'EMS Push Script';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_6a26f548831e6a8c26bfbbd9f6ec61e0'] = 'Hilfe';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_43cb884881c0f06da549972ed413c477'] = '@Link:';
-$_MODULE['<{clickandbuy}prestashop>clickandbuy_7f04a12b0001f274f01b2540f1e35c1b'] = 'ClickandBuy.com';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_510db974619d0b8069cf3526f7d09230'] = '@Vendor:';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_fbf3ccc8d02ed2ac6b75b8b47a5dff9b'] = '@Author:';
-$_MODULE['<{clickandbuy}prestashop>clickandbuy_d118b26992ca61dad23f60e3aaac8f9d'] = '@See:';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_170149a92b2369179bf59bbd535d2f03'] = 'Warenkorb ID';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_6e3299a269c0ddd13beacc072d748d6d'] = 'Zahlen mit ClickandBuy';
 $_MODULE['<{clickandbuy}prestashop>clickandbuy_aa75009d991d5a1252e2e9977161b608'] = 'Zahlen mit ClickandBuy';
