@@ -1,20 +1,26 @@
-*
-* $Id$
-*
-* Copyright (c) 2009 Christoph Gruber, www.touchdesign.de
-*
-* @author Christoph Gruber <www.touchdesign.de>
-* @copyright 01.12.2009, touchDesign
-* @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
-*
+README
+======
 
--- DOWNLOAD --
+Download
+----------------------
 
-Das Modul wird Open Source angeboten und kann unter folgender URL kostenlos heruntergeladen werden:
+Das Modul wird Open Source unter der Open Software License (OSL 3.0) angeboten und kann unter folgender URL kostenlos heruntergeladen werden:
 
 http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
 
--- INSTALLATION PER MODULINSTALLER --
+Autor & Copyright
+------------------
+
+Copyright by: touchDesign
+Chief developer: Christoph Gruber
+
+Licenses
+--------
+
+Released under Open Software License (OSL 3.0).
+
+INSTALLATION PER MODULINSTALLER
+-------------------------------
 
 Wechseln Sie in Ihrem Shopsystem über den "Adminbereich" in den Tab "Module" und klicken Sie auf den
 Link "Ein neues Modul hinzufügen". Klicken Sie auf den Button "Durchsuchen" und wählen Sie nun das 
@@ -23,10 +29,16 @@ Nach dem Sie das Modularchiv angewählt haben bestätigen Sie bitte die Installa
 Klick auf den Button "Dieses Modul hochladen". Nach erfolgreicher Installation des Modules erscheint die 
 Meldung "Modul wurde erfolgreich installiert".
 
--- AUTOMATISCHE HÄNDLER SCHNELLREGISTRIERUNG (Neukunden) --
+AUTOMATISCHE HÄNDLER SCHNELLREGISTRIERUNG (Neukunden)
+-----------------------------------------------------
 
 Nach erfolgreicher Installation des ClickandBuy Modules wechseln Sie bitte in die Modul-Konfiguration durch Anwahl 
 des soeben installierten Modules "ClickandBuy" in der Modulliste unter der Kategorie "Payment" durch einen Klick 
 auf auf den Link "Einstellungen". Folgen Sie nun bitte dem Link "Automatische ClickandBuy Händlerregistrierung" um ein
 neues Händlerkonto bei ClickandBuy einzurichten. Nach erfolgreicher Installation werden Sie automatisch in das Shopsystem
 zurückgeleitet und das Paymentmodul ClickandBuy wird automatisch mit allen notwendigen Daten vorkonfiguriert.
+
+Ressourcen
+----------
+
+[1]: http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
