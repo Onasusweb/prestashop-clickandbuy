@@ -7,7 +7,7 @@
  * Copyright (c) 2009 touchDesign
  *
  * @category Payment
- * @version 0.3
+ * @version 0.4
  * @copyright 01.12.2009, touchDesign
  * @author Christoph Gruber, <www.touchdesign.de>
  * @link http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm

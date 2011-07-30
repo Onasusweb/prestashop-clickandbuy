@@ -7,7 +7,7 @@
  * Copyright (c) 2009 touchDesign
  *
  * @category Payment
- * @version 0.3
+ * @version 0.4
  * @copyright 01.12.2009, touchDesign
  * @author Christoph Gruber, <www.touchdesign.de>
  * @link http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
@@ -44,7 +44,7 @@ class clickandbuy extends PaymentModule {
     }else{
       $this->tab = 'payments_gateways';
     }
-    $this->version = '0.3';
+    $this->version = '0.4';
     $this->author = 'touchDesign';
     $this->currencies = true;
     $this->currencies_mode = 'radio';
@@ -154,8 +154,8 @@ class clickandbuy extends PaymentModule {
     return $this->_displayForm();
   }
 
-  public function getSuccessMessage() {
-
+  public function getSuccessMessage()
+  {
     $this->_html.='
     <div class="conf confirm">
       <img src="../img/admin/ok.gif" alt="'.$this->l('Confirmation').'" />
@@ -290,7 +290,7 @@ class clickandbuy extends PaymentModule {
         <legend><img src="../img/admin/unknown.gif" alt="" class="middle" />'.$this->l('Help').'</legend>   
         '.$this->l('@Link:').' <a target="_blank" href="http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm">www.touchdesign.de</a><br />
         '.$this->l('@Vendor:').' ClickandBuy International Limited<br />
-        '.$this->l('@Author:').' <a target="_blank" href="http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm">touchDesign</a><br />
+        '.$this->l('@Author:').' <a target="_blank" href="http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm">touchdesign</a><br />
       </fieldset><br />';
 
     return $this->_html;
@@ -307,7 +307,7 @@ class clickandbuy extends PaymentModule {
     $addressInvoice = new Address(intval($params['cart']->id_address_invoice));
     $addressDelivery = new Address(intval($params['cart']->id_address_delivery));
     $customer = new Customer(intval($params['cart']->id_customer));
-    $currency = $this->getCurrency();
+    $currency = new Currency(intval($params['cart']->id_currency));
     $countryInvoice = new Country(intval($addressInvoice->id_country));
     $countryDelivery = new Country(intval($addressDelivery->id_country));
     $lang = Language::getIsoById(intval($params['cart']->id_lang));
