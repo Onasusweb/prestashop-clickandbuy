@@ -7,7 +7,7 @@
  * Copyright (c) 2009 touchdesign
  *
  * @category Payment
- * @version 0.5
+ * @version 0.4
  * @copyright 01.12.2009, touchdesign
  * @author Christoph Gruber, <www.touchdesign.de>
  * @link http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
@@ -44,7 +44,7 @@ class clickandbuy extends PaymentModule {
     }else{
       $this->tab = 'payments_gateways';
     }
-    $this->version = '0.5';
+    $this->version = '0.4';
     $this->author = 'touchDesign';
     $this->currencies = true;
     $this->currencies_mode = 'radio';

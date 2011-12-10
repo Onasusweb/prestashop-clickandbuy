@@ -2,7 +2,7 @@
 <module>
 	<name>clickandbuy</name>
 	<displayName>ClickandBuy</displayName>
-	<version>0.5</version>
+	<version>0.4</version>
 	<description>Accepts payments by ClickandBuy</description>
 	<author>touchdesign</author>
 	<tab>payments_gateways</tab>
