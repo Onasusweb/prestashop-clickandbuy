@@ -4,11 +4,11 @@
  *
  * clickandbuy Module
  *
- * Copyright (c) 2009 touchDesign
+ * Copyright (c) 2009 touchdesign
  *
  * @category Payment
- * @version 0.4
- * @copyright 01.12.2009, touchDesign
+ * @version 0.5
+ * @copyright 01.12.2009, touchdesign
  * @author Christoph Gruber, <www.touchdesign.de>
  * @link http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)

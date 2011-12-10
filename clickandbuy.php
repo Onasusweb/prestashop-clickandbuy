@@ -4,11 +4,11 @@
  *
  * clickandbuy Module
  *
- * Copyright (c) 2009 touchDesign
+ * Copyright (c) 2009 touchdesign
  *
  * @category Payment
- * @version 0.4
- * @copyright 01.12.2009, touchDesign
+ * @version 0.5
+ * @copyright 01.12.2009, touchdesign
  * @author Christoph Gruber, <www.touchdesign.de>
  * @link http://www.touchdesign.de/loesungen/prestashop/clickandbuy.htm
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
@@ -35,8 +35,8 @@ class clickandbuy extends PaymentModule {
 
   private $_html = '';
 
-  public function __construct() {
-
+  public function __construct() 
+  {
     $this->name = 'clickandbuy';
     $this->tab = 'Payment';
     if (version_compare(_PS_VERSION_, '1.4.0', '<')){
@@ -44,7 +44,7 @@ class clickandbuy extends PaymentModule {
     }else{
       $this->tab = 'payments_gateways';
     }
-    $this->version = '0.4';
+    $this->version = '0.5';
     $this->author = 'touchDesign';
     $this->currencies = true;
     $this->currencies_mode = 'radio';
@@ -55,8 +55,8 @@ class clickandbuy extends PaymentModule {
     $this->confirmUninstall = $this->l('Are you sure you want to delete your details?');
   }
 
-  public function install() {
-
+  public function install() 
+  {
     $sql = "CREATE TABLE "._DB_PREFIX_."clickandbuy(
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       status VARCHAR(30) NOT NULL,
@@ -90,8 +90,8 @@ class clickandbuy extends PaymentModule {
     return true;
   }
 
-  public function uninstall() {
-
+  public function uninstall() 
+  {
     if (!Configuration::deleteByName('CLICKANDBUY_TRANS_LINK') || 
       !Configuration::deleteByName('CLICKANDBUY_TRANS_PASSWD') ||
       !Configuration::deleteByName('CLICKANDBUY_MD5_KEY') ||      
@@ -110,8 +110,8 @@ class clickandbuy extends PaymentModule {
     return true;
   }
 
-  private function _postValidation() {
-
+  private function _postValidation() 
+  {
     if (Tools::getValue('submitUpdate')){
       if (!Tools::getValue('CLICKANDBUY_TRANS_LINK')){
         $this->_postErrors[] = $this->l('ClickandBuy "transaction link" is required.');
@@ -125,8 +125,8 @@ class clickandbuy extends PaymentModule {
     }
   }
 
-  public function getContent() {
-
+  public function getContent() 
+  {
     $this->_html .= '<h2>'.$this->displayName.'</h2>';
     if (Tools::isSubmit('submitUpdate')){
       Configuration::updateValue('CLICKANDBUY_TRANS_LINK', Tools::getValue('CLICKANDBUY_TRANS_LINK'));
@@ -163,26 +163,26 @@ class clickandbuy extends PaymentModule {
     </div>';
   }
 
-  private function getEmsPushScriptUrl() {
-
+  private function getEmsPushScriptUrl() 
+  {
     return (Configuration::get('PS_SSL_ENABLED') == 1 ? 'https://' : 'http://') 
       . $_SERVER['HTTP_HOST']._MODULE_DIR_.$this->name.'/emsPush.php';
   }
 
-  private function getConfirmationUrl() {
-
+  private function getConfirmationUrl() 
+  {
     return (Configuration::get('PS_SSL_ENABLED') == 1 ? 'https://' : 'http://')
       . $_SERVER['HTTP_HOST']._MODULE_DIR_.$this->name.'/validation.php';
   }
 
-  private function getShopUrl() {
-
+  private function getShopUrl() 
+  {
     return (Configuration::get('PS_SSL_ENABLED') == 1 ? 'https://' : 'http://') 
       . $_SERVER['HTTP_HOST'].__PS_BASE_URI__;
   }
 
-  private function getAutoRegisterUrl() {
-
+  private function getAutoRegisterUrl() 
+  {
     $params = array(
       'portalid' => 'touchDesign',
       'shopurl' => $this->getShopUrl(),
@@ -200,8 +200,8 @@ class clickandbuy extends PaymentModule {
     return substr($urlTouchDesign,0,-1);
   }
 
-  private function _displayForm() {
-
+  private function _displayForm() 
+  {
     $this->_html.= '
       <style type="text/css">
       fieldset a {
@@ -296,8 +296,8 @@ class clickandbuy extends PaymentModule {
     return $this->_html;
   }
 
-  public function hookPayment($params) {
-
+  public function hookPayment($params) 
+  {
     $isPayment = $this->isPayment();
     if($isPayment !== true)
       return $this->l($isPayment);
@@ -356,16 +356,16 @@ class clickandbuy extends PaymentModule {
     return $this->display(__FILE__, 'clickandbuy.tpl');
   }
 
-  function hookLeftColumn($params) {
-
+  function hookLeftColumn($params) 
+  {
     if(Configuration::get('CLICKANDBUY_BLOCK_LOGO') == "N")
       return false;
 
     return $this->display(__FILE__, 'blockclickandbuylogo.tpl');
   }
 
-  public function hookPaymentReturn($params) {
-
+  public function hookPaymentReturn($params) 
+  {
     global $smarty;
 
     $orderObj = $params['objOrder'];
@@ -392,8 +392,8 @@ class clickandbuy extends PaymentModule {
     return $this->display(__FILE__, 'confirmation.tpl');
   } 
 
-  public function isPayment() {
-
+  public function isPayment() 
+  {
     if (!$this->active)
       return false;
     if (!Configuration::get('CLICKANDBUY_TRANS_LINK'))
@@ -404,8 +404,8 @@ class clickandbuy extends PaymentModule {
     return true;
   }
 
-  public function switchOrderState($cartId, $orderState, $amount=NULL, $message=NULL) {
-
+  public function switchOrderState($cartId, $orderState, $amount=NULL, $message=NULL) 
+  {
     $orderId = Order::getOrderByCartId($cartId);
     if ($orderId){
       $order = new Order($orderId);
@@ -436,8 +436,8 @@ class clickandbuy extends PaymentModule {
     return false;
   }
 
-  function getEMSOrderState($action) {
-
+  function getEMSOrderState($action) 
+  {
     switch ($action) {
       case 'payment_successful':
       case 'charge back lifted':
