@@ -4,12 +4,12 @@
  *
  * touchdesign module
  *
- * Copyright (c) 2011 touchDesign
+ * Copyright (c) 2011 touchdesign
  *
  * @category Library
  * @version 0.1
- * @copyright 12.04.2010, touchDesign
- * @author Christoph Gruber, <www.touchdesign.de>
+ * @copyright 12.04.2010, touchdesign
+ * @author Christin Gruber, <www.touchdesign.de>
  * @link http://www.touchdesign.de
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  *
