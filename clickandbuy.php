@@ -81,6 +81,7 @@ class clickandbuy extends PaymentModule {
       !Configuration::updateValue('CLICKANDBUY_OS_ACCEPTED', 2) ||
       !Configuration::updateValue('CLICKANDBUY_OS_PENDING', 3) ||
       !Configuration::updateValue('CLICKANDBUY_BLOCK_LOGO', 'Y') ||
+      !Configuration::updateValue('CLICKANDBUY_CONFIRM_ORDER', 'Y') ||
       !$this->registerHook('payment') ||
       !$this->registerHook('leftColumn') ||
       !$this->registerHook('paymentReturn')){
@@ -100,6 +101,7 @@ class clickandbuy extends PaymentModule {
       !Configuration::deleteByName('CLICKANDBUY_OS_ACCEPTED') ||
       !Configuration::deleteByName('CLICKANDBUY_OS_PENDING') ||
       !Configuration::deleteByName('CLICKANDBUY_BLOCK_LOGO') || 
+      !Configuration::deleteByName('CLICKANDBUY_CONFIRM_ORDER') ||
       !parent::uninstall()){
       return false;
     }
@@ -134,6 +136,7 @@ class clickandbuy extends PaymentModule {
       Configuration::updateValue('CLICKANDBUY_MD5_KEY', Tools::getValue('CLICKANDBUY_MD5_KEY'));      
       Configuration::updateValue('CLICKANDBUY_SELLER_ID', Tools::getValue('CLICKANDBUY_SELLER_ID'));
       Configuration::updateValue('CLICKANDBUY_BLOCK_LOGO', Tools::getValue('CLICKANDBUY_BLOCK_LOGO'));
+      Configuration::updateValue('CLICKANDBUY_CONFIRM_ORDER', Tools::getValue('CLICKANDBUY_CONFIRM_ORDER'));
     } elseif (Tools::getValue('SellerID') && Tools::getValue('LinkURL') 
       && Tools::getValue('TMIPassword')){
       Configuration::updateValue('CLICKANDBUY_TRANS_LINK', Tools::getValue('LinkURL'));
@@ -269,8 +272,18 @@ class clickandbuy extends PaymentModule {
           </select>
           <p>'.$this->l('Display logo and payment info block in left column').'</p>
         </div>
+        <div class="clear"></div>
+        
+        <label>'.$this->l('Enable order confirmation?').'</label>
+        <div class="margin-form">
+          <select name="CLICKANDBUY_CONFIRM_ORDER">
+            <option '.(Configuration::get('CLICKANDBUY_CONFIRM_ORDER') == "Y" ? "selected" : "").' value="Y">'.$this->l('Yes, let customer confirm orders (recommended)').'</option>
+            <option '.(Configuration::get('CLICKANDBUY_CONFIRM_ORDER') == "N" ? "selected" : "").' value="N">'.$this->l('No, redirect direct').'</option>
+          </select>
+          <p>'.$this->l('Customer have to confirm their order before redirect to clickandbuy').'</p>
+        </div>
         <div class="clear"></div>';
-      
+        
     $this->_html.= '
         <div class="margin-form clear pspace"><input type="submit" name="submitUpdate" value="'.$this->l('Update').'" class="button" /></div>
       </fieldset>
@@ -298,61 +311,14 @@ class clickandbuy extends PaymentModule {
 
   public function hookPayment($params) 
   {
-    $isPayment = $this->isPayment();
-    if($isPayment !== true)
-      return $this->l($isPayment);
-
     global $smarty;
-
-    $addressInvoice = new Address(intval($params['cart']->id_address_invoice));
-    $addressDelivery = new Address(intval($params['cart']->id_address_delivery));
-    $customer = new Customer(intval($params['cart']->id_customer));
-    $currency = new Currency(intval($params['cart']->id_currency));
-    $countryInvoice = new Country(intval($addressInvoice->id_country));
-    $countryDelivery = new Country(intval($addressDelivery->id_country));
-    $lang = Language::getIsoById(intval($params['cart']->id_lang));
-
-    if (!Validate::isLoadedObject($addressInvoice) || !Validate::isLoadedObject($addressDelivery) 
-      || !Validate::isLoadedObject($customer) || !Validate::isLoadedObject($currency)){
-      return $this->l($this->displayName.' Error: (invalid address or customer)');
+    
+    if(Configuration::get('CLICKANDBUY_CONFIRM_ORDER') == "Y"){
+      $smarty->assign(array('gateway' => Tools::getHttpHost(true, true).__PS_BASE_URI__.'modules/'.$this->name.'/payment.php'));
+    }else{
+      $smarty->assign(array('gateway' => $this->getPremiumLink($params['cart'])));
     }
-
-    $timestamp = time();
-    $premiumLink = Configuration::get('CLICKANDBUY_TRANS_LINK');
-
-    $params = array(
-      'price' => number_format(Tools::convertPrice($params['cart']->getOrderTotal(), $currency), 2, '.', ''), 
-      'cb_currency' => $currency->iso_code, 
-      'externalBDRID' => $params['cart']->id,
-      'cb_content_name_utf' => $this->l('CartId:').' '.$timestamp.intval($params['cart']->id),
-      'cb_content_info_utf' => $customer->firstname.' '.ucfirst(strtolower($customer->lastname)),
-      'lang' => $lang,
-      'cb_billing_FirstName' => $addressInvoice->firstname,
-      'cb_billing_LastName' => $addressInvoice->lastname,
-      'cb_billing_Street' => $addressInvoice->address1,
-      'cb_billing_City' => $addressInvoice->city,
-      'cb_billing_ZIP' => $addressInvoice->postcode,
-      'cb_billing_Nation' => $countryInvoice->iso_code,
-      'cb_shipping_FirstName' => $addressDelivery->firstname,
-      'cb_shipping_LastName' => $addressDelivery->lastname,
-      'cb_shipping_Street' => $addressDelivery->address1,
-      'cb_shipping_City' => $addressDelivery->city,
-      'cb_shipping_ZIP' => $addressDelivery->postcode,
-      'cb_shipping_Nation' => $countryDelivery->iso_code,
-    );
-
-    $query="";
-    foreach($params AS $k => $v){
-      $query .= $k."=".urlencode($v)."&";
-    }
-
-    $url = $premiumLink.'?'.substr($query,0,-1);
-    if(Configuration::get('CLICKANDBUY_MD5_KEY')){
-      $url.='&fgkey='.md5(Configuration::get('CLICKANDBUY_MD5_KEY') . "/" . basename($url));
-    }
-
-    $smarty->assign('gateway',$url);
-
+    
     return $this->display(__FILE__, 'clickandbuy.tpl');
   }
 
@@ -427,9 +393,15 @@ class clickandbuy extends PaymentModule {
         return 1;
       }
     } else {
-      $this->validateOrder($cartId, $orderState, $amount, 
-        $this->displayName, $message);
-      
+      if (version_compare(_PS_VERSION_, '1.4.0', '<')){
+        $this->validateOrder($cartId, $orderState, $amount, 
+          $this->displayName, $message, null, null, false);
+      }else{
+        $cart = new Cart($cartId);
+        $customer = new Customer($cart->id_customer);
+        $this->validateOrder($cartId, $orderState, $amount, 
+          $this->displayName, $message, null, null, false, $customer->secure_key);
+      }
       return 0;
     }
 
@@ -456,6 +428,73 @@ class clickandbuy extends PaymentModule {
     }
   }  
 
+  public function execPayment($cart)
+  {
+    global $smarty;
+    
+    $smarty->assign(array('gateway' => $this->getPremiumLink($cart), 
+      'nbProducts' => $cart->nbProducts(),
+      'total' => number_format(Tools::convertPrice($cart->getOrderTotal(), $currency), 2, '.', '')));
+
+    return $this->display(__FILE__, 'payment_execution.tpl');
+  }
+  
+  private function getPremiumLink($cart)
+  {
+    $isPayment = $this->isPayment();
+    if($isPayment !== true){
+      return $this->l($isPayment);
+    }
+
+    $addressInvoice = new Address(intval($cart->id_address_invoice));
+    $addressDelivery = new Address(intval($cart->id_address_delivery));
+    $customer = new Customer(intval($cart->id_customer));
+    $currency = new Currency(intval($cart->id_currency));
+    $countryInvoice = new Country(intval($addressInvoice->id_country));
+    $countryDelivery = new Country(intval($addressDelivery->id_country));
+    $lang = Language::getIsoById(intval($cart->id_lang));
+
+    if (!Validate::isLoadedObject($addressInvoice) || !Validate::isLoadedObject($addressDelivery) 
+      || !Validate::isLoadedObject($customer) || !Validate::isLoadedObject($currency)){
+      return $this->l($this->displayName.' Error: (invalid address or customer)');
+    }
+
+    $timestamp = time();
+    $premiumLink = Configuration::get('CLICKANDBUY_TRANS_LINK');
+
+    $params = array(
+      'price' => number_format(Tools::convertPrice($cart->getOrderTotal(), $currency), 2, '.', ''), 
+      'cb_currency' => $currency->iso_code, 
+      'externalBDRID' => $cart->id,
+      'cb_content_name_utf' => $this->l('CartId:').' '.$timestamp.intval($cart->id),
+      'cb_content_info_utf' => $customer->firstname.' '.ucfirst(strtolower($customer->lastname)),
+      'lang' => $lang,
+      'cb_billing_FirstName' => $addressInvoice->firstname,
+      'cb_billing_LastName' => $addressInvoice->lastname,
+      'cb_billing_Street' => $addressInvoice->address1,
+      'cb_billing_City' => $addressInvoice->city,
+      'cb_billing_ZIP' => $addressInvoice->postcode,
+      'cb_billing_Nation' => $countryInvoice->iso_code,
+      'cb_shipping_FirstName' => $addressDelivery->firstname,
+      'cb_shipping_LastName' => $addressDelivery->lastname,
+      'cb_shipping_Street' => $addressDelivery->address1,
+      'cb_shipping_City' => $addressDelivery->city,
+      'cb_shipping_ZIP' => $addressDelivery->postcode,
+      'cb_shipping_Nation' => $countryDelivery->iso_code,
+    );
+
+    $query="";
+    foreach($params AS $k => $v){
+      $query .= $k."=".urlencode($v)."&";
+    }
+
+    $url = $premiumLink.'?'.substr($query,0,-1);
+    if(Configuration::get('CLICKANDBUY_MD5_KEY')){
+      $url.='&fgkey='.md5(Configuration::get('CLICKANDBUY_MD5_KEY') . "/" . basename($url));
+    }
+    
+    return $url;
+  }
 }
 
 ?>
