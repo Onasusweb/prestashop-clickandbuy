@@ -46,6 +46,7 @@ class clickandbuy extends PaymentModule {
     }
     $this->version = '0.4';
     $this->author = 'touchdesign';
+	$this->module_key = '17cd5ba9ce0b7844a6357358a54c069c';
     $this->currencies = true;
     $this->currencies_mode = 'radio';
     parent::__construct();
